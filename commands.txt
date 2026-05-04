@@ -1,0 +1,14 @@
+#access1
+conf t
+vlan 10
+name employee
+vlan 20
+name wireless
+
+interface ethernet 3
+switchport mode access
+switchport access vlan 10
+
+interface ethernet 4
+switchport mode access
+switchport access vlan 20
