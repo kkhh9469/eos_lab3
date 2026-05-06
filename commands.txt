@@ -52,6 +52,14 @@ no shutdown
 conf t
 ip routing
 
+conf t
+vlan 10
+name employee
+vlan 20
+name wireless
+vlan 30
+name server
+
 interface loopback 0
 ip address 1.1.1.1/32
 
@@ -74,6 +82,13 @@ channel-group 2 mode active
 interface port-channel 2
 switchport mode trunk
 
+interface vlan 10
+ip address 192.168.110.1/24
+interface vlan 20
+ip address 192.168.120.1/24
+interface vlan 30
+ip address 192.168.130.1/24
+
 router ospf 1
 router-id 1.1.1.1
 interface ethernet 1
@@ -87,6 +102,14 @@ ip ospf area 0.0.0.0
 # core2
 conf t
 ip routing
+
+conf t
+vlan 10
+name employee
+vlan 20
+name wireless
+vlan 30
+name server
 
 interface loopback 0
 ip address 2.2.2.2/32
@@ -110,6 +133,13 @@ channel-group 2 mode active
 interface port-channel 2
 switchport mode trunk
 
+interface vlan 10
+ip address 192.168.110.1/24
+interface vlan 20
+ip address 192.168.120.1/24
+interface vlan 30
+ip address 192.168.130.1/24
+
 router ospf 1
 router-id 2.2.2.2
 interface ethernet 1
@@ -122,6 +152,14 @@ ip ospf area 0.0.0.0
 conf t
 
 ip routing
+
+conf t
+vlan 10
+name employee
+vlan 20
+name wireless
+vlan 30
+name server
 
 interface loopback 0
 ip address 3.3.3.3/32
