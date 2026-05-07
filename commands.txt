@@ -95,6 +95,10 @@ interface ethernet 1
 ip ospf area 0.0.0.0
 int loopback 0
 ip ospf area 0.0.0.0
+int vlan 10
+ip ospf area 0.0.0.0
+int vlan 20
+ip ospf area 0.0.0.0
 
 
 
@@ -145,6 +149,10 @@ router-id 2.2.2.2
 interface ethernet 1
 ip ospf area 0.0.0.0
 int loopback 0
+ip ospf area 0.0.0.0
+int vlan 10
+ip ospf area 0.0.0.0
+int vlan 20
 ip ospf area 0.0.0.0
 
 =========================================
