@@ -93,7 +93,7 @@ router ospf 1
 router-id 1.1.1.1
 interface ethernet 1
 ip ospf area 0.0.0.0
-int port-Channel 1
+int loopback 0
 ip ospf area 0.0.0.0
 
 
@@ -144,7 +144,7 @@ router ospf 1
 router-id 2.2.2.2
 interface ethernet 1
 ip ospf area 0.0.0.0
-int port-Channel 1
+int loopback 0
 ip ospf area 0.0.0.0
 
 =========================================
@@ -179,6 +179,12 @@ no switchport
 ip address 10.0.0.5/30
 no shutdown
 
+router ospf 1
+router-id 3.3.3.3
+interface ethernet 2
+ip ospf area 0.0.0.0
+interface ethernet 3
+ip ospf area 0.0.0.0
 
 =========================================
 # isp1
@@ -194,3 +200,4 @@ interface ethernet 1
 no switchport
 ip address 172.16.1.1/30
 no shutdown
+
