@@ -91,12 +91,12 @@ interface vlan 20
 ip address 192.168.120.251/24
 vrrp 20 ipv4 192.168.120.1
 vrrp 20 priority 110
-vrrp 10 preempt
+vrrp 20 preempt
 interface vlan 30
 ip address 192.168.130.251/24
 vrrp 30 ipv4 192.168.130.1
 vrrp 30 priority 110
-vrrp 10 preempt
+vrrp 30 preempt
 
 
 router ospf 1
@@ -155,12 +155,12 @@ interface vlan 20
 ip address 192.168.120.252/24
 vrrp 20 ipv4 192.168.120.1
 vrrp 20 priority 110
-vrrp 10 preempt
+vrrp 20 preempt
 interface vlan 30
 ip address 192.168.130.252/24
 vrrp 30 ipv4 192.168.130.1
 vrrp 30 priority 110
-vrrp 10 preempt
+vrrp 30 preempt
 
 router ospf 1
 router-id 2.2.2.2
@@ -179,14 +179,6 @@ ip ospf area 0.0.0.0
 conf t
 
 ip routing
-
-conf t
-vlan 10
-name employee
-vlan 20
-name wireless
-vlan 30
-name server
 
 interface loopback 0
 ip address 3.3.3.3/32
