@@ -84,10 +84,20 @@ switchport mode trunk
 
 interface vlan 10
 ip address 192.168.110.251/24
+vrrp 10 ipv4 192.168.110.1
+vrrp 10 priority 110
+vrrp 10 preempt
 interface vlan 20
 ip address 192.168.120.251/24
+vrrp 20 ipv4 192.168.120.1
+vrrp 20 priority 110
+vrrp 10 preempt
 interface vlan 30
 ip address 192.168.130.251/24
+vrrp 30 ipv4 192.168.130.1
+vrrp 30 priority 110
+vrrp 10 preempt
+
 
 router ospf 1
 router-id 1.1.1.1
@@ -100,10 +110,6 @@ ip ospf area 0.0.0.0
 int vlan 20
 ip ospf area 0.0.0.0
 
-interface port-channel 1
-vrrp 10 ip 192.168.110.1
-vrrp 20 ip 192.168.120.1
-vrrp 30 ip 192.168.130.1
 
 -----------------------------------
 # core2
@@ -142,10 +148,19 @@ switchport mode trunk
 
 interface vlan 10
 ip address 192.168.110.252/24
+vrrp 10 ipv4 192.168.110.1
+vrrp 10 priority 110
+vrrp 10 preempt
 interface vlan 20
 ip address 192.168.120.252/24
+vrrp 20 ipv4 192.168.120.1
+vrrp 20 priority 110
+vrrp 10 preempt
 interface vlan 30
 ip address 192.168.130.252/24
+vrrp 30 ipv4 192.168.130.1
+vrrp 30 priority 110
+vrrp 10 preempt
 
 router ospf 1
 router-id 2.2.2.2
@@ -157,11 +172,6 @@ int vlan 10
 ip ospf area 0.0.0.0
 int vlan 20
 ip ospf area 0.0.0.0
-
-interface port-channel 1
-vrrp 10 ip 192.168.110.1
-vrrp 20 ip 192.168.120.1
-vrrp 30 ip 192.168.130.1
 
 
 =========================================
@@ -204,6 +214,9 @@ interface ethernet 2
 ip ospf area 0.0.0.0
 interface ethernet 3
 ip ospf area 0.0.0.0
+interface loopback 0
+ip ospf area 0.0.0.0
+
 
 =========================================
 # isp1
