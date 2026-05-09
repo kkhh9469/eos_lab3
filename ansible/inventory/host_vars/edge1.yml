@@ -1,0 +1,26 @@
+loopback: 3.3.3.3/32
+
+router_id: 3.3.3.3
+ospf_index: 1
+
+ospf:
+  - id: eth1
+    name: ethernet1
+    area: 0.0.0.0
+  - id: eth2
+    name: ethernet2
+    area: 0.0.0.0
+  - id: eth3
+    name: ethernet3
+    area: 0.0.0.0
+
+ipv4:
+  - id: eth1
+    name: ethernet1
+    ipv4: 172.16.1.2/30
+  - id: eth2
+    name: ethernet2
+    ipv4: 10.0.0.1/30
+  - id: eth3
+    name: ethernet3
+    ipv4: 10.0.0.5/30

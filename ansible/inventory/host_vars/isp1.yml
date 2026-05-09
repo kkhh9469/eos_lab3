@@ -1,0 +1,14 @@
+loopback: 10.10.10.10/32
+
+router_id: 10.10.10.10
+ospf_index: 1
+
+ospf:
+  - id: eth1
+    name: ethernet1
+    area: 0.0.0.0
+
+ipv4:
+  - id: eth1
+    name: ethernet1
+    ipv4: 172.16.1.1/30

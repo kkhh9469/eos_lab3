@@ -1,0 +1,70 @@
+loopback: 1.1.1.1/32
+
+router_id: 1.1.1.1
+ospf_index: 1
+ospf:
+  - id: eth1
+    name: ethernet1
+    area: 0.0.0.0
+  - id: vlan 10
+    name: vlan 10
+    area: 0.0.0.0
+  - id: vlan 20
+    name: vlan 20
+    area: 0.0.0.0
+
+
+vlan:
+  - id: 10
+    name: employee
+  - id: 20
+    name: wireless
+  - id: 30
+    name: server
+
+lacp:
+  - id: int2-3
+    index: 1
+    name: ethernet2-3
+    mode: active
+  - id: int4-5
+    index: 2
+    name: ethernet4-5
+    mode: active
+
+trunk_interfaces:
+  - id: po1
+    name: port-channel1
+    mode: trunk
+    allowed: 10,20,30
+  - id: po2
+    name: port-channel2
+    mode: trunk
+    allowed: 10, 20, 30
+
+ipv4:
+  - id: eth1
+    name: ethernet1
+    ipv4: 10.0.0.2/30
+
+svi:
+  - id: vlan 10
+    ipv4: 192.168.110.251/24
+  - id: vlan 20
+    ipv4: 192.168.120.251/24
+  - id: vlan 30
+    ipv4: 192.168.130.251/24
+
+vrrp:
+  - id: vlan 10
+    index: 10
+    gateway:  192.168.110.1
+    priority: 110
+  - id: vlan 20
+    index: 20
+    gateway:  192.168.120.1
+    priority: 110
+  - id: vlan 30
+    index: 30
+    gateway:  192.168.130.1
+    priority: 110

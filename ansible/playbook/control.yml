@@ -1,0 +1,114 @@
+---
+- name: config vlan
+  hosts: access, core
+  gather_facts: false
+
+  tasks:
+  - name: create vlan
+    arista.eos.eos_config:
+      parents: vlan {{ item.id }}
+      lines:
+        - name {{ item.name }}
+    loop: "{{ vlan }}"
+
+
+- name: config access
+  hosts: access
+  gather_facts: false
+
+  tasks:
+  - name: access interfaces
+    arista.eos.eos_config:
+      parents: interface {{ item.name }}
+      lines:
+        - switchport access vlan {{ item.vlan }}
+        - no shutdown
+    loop: "{{ access_interfaces }}"
+
+- name: config lacp, trunk
+  hosts: access, core
+  gather_facts: false
+
+  tasks:
+  - name: create lacp
+    arista.eos.eos_config:
+      parents: interface {{ item.name }}
+      lines:
+        - channel-group {{ item.index }} mode {{ item.mode }}
+        - no shutdown
+    loop: "{{ lacp }}"
+
+  - name: config trunk
+    arista.eos.eos_config:
+      parents: interface {{ item.name }}
+      lines:
+        - switchport mode trunk
+        - switchport trunk allowed vlan {{ item.allowed }}
+        - no shutdown
+    loop: "{{ trunk_interfaces }}"
+
+
+- name: config uplink
+  hosts: core, edge, isp
+  gather_facts: false
+
+  tasks:
+  - name: enable ip routing
+    arista.eos.eos_config:
+      lines:
+        - ip routing
+
+  - name: create loopback
+    arista.eos.eos_config:
+      parents: interface loopback 0
+      lines:
+        - ip address {{ loopback }}
+
+  - name: config ipv4
+    arista.eos.eos_config:
+      parents: interface {{ item.name }}
+      lines:
+        - no switchport
+        - ip address {{ item.ipv4 }}
+    loop: "{{ ipv4 }}"
+
+  - name: config ospf
+    arista.eos.eos_config:
+      parents: router ospf {{ ospf_index }}
+      lines:
+        - router-id {{ router_id }}
+        
+  - name: attatch ospf to int
+    arista.eos.eos_config:
+      parents: interface {{ item.name }}
+      lines:
+        - ip ospf area {{ item.area }}
+    loop: "{{ ospf }}"
+
+  - name: attatch ospf to loopback
+    arista.eos.eos_config:
+      parents: interface loopback 0
+      lines:
+        - ip ospf area {{ item.area }}
+    loop: "{{ ospf }}"
+
+- name: config vrrp
+  hosts: core
+  gather_facts: false
+
+  tasks:
+  - name: create vrrp
+    arista.eos.eos_config:
+      parents: interface {{ item.id }}
+      lines:
+        - ip address {{ item.ipv4 }}
+    loop: "{{ svi }}"
+
+  - name: create vrrp
+    arista.eos.eos_config:
+      parents: interface {{ item.id }}
+      lines:
+        - vrrp {{ item.index }} ipv4 {{ item.gateway }}
+        - vrrp {{ item.index }} priority {{ item.priority }}
+        - vrrp {{ item.index }} preempt
+    loop: "{{ vrrp }}"

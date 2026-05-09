@@ -1,0 +1,30 @@
+vlan:
+  - id: 10
+    name: employee
+  - id: 20
+    name: wireless
+  - id: 30
+    name: server
+
+access_interfaces:
+  - id: eth3
+    name: ethernet3
+    vlan: 10
+  - id: eth4
+    name: ethernet4
+    vlan: 20
+  - id: eth5
+    name: ethernet5
+    vlan: 30
+
+trunk_interfaces:
+  - id: po1
+    name: port-channel1
+    mode: trunk
+    allowed: 10, 20, 30
+
+lacp:
+  - id: int1-2
+    index: 1
+    name: ethernet1-2
+    mode: active
