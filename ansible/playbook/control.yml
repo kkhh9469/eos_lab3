@@ -78,14 +78,14 @@
       lines:
         - router-id {{ router_id }}
         
-  - name: attatch ospf to int
+  - name: attach ospf to int
     arista.eos.eos_config:
       parents: interface {{ item.name }}
       lines:
         - ip ospf area {{ item.area }}
     loop: "{{ ospf }}"
 
-  - name: attatch ospf to loopback
+  - name: attach ospf to loopback
     arista.eos.eos_config:
       parents: interface loopback 0
       lines:
